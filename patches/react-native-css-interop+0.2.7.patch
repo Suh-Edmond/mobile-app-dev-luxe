@@ -1,0 +1,95 @@
+diff --git a/node_modules/react-native-css-interop/.cache/android.js b/node_modules/react-native-css-interop/.cache/android.js
+new file mode 100644
+index 0000000..e69de29
+diff --git a/node_modules/react-native-css-interop/.cache/ios.js b/node_modules/react-native-css-interop/.cache/ios.js
+new file mode 100644
+index 0000000..e69de29
+diff --git a/node_modules/react-native-css-interop/.cache/macos.js b/node_modules/react-native-css-interop/.cache/macos.js
+new file mode 100644
+index 0000000..e69de29
+diff --git a/node_modules/react-native-css-interop/.cache/native.js b/node_modules/react-native-css-interop/.cache/native.js
+new file mode 100644
+index 0000000..e69de29
+diff --git a/node_modules/react-native-css-interop/.cache/windows.js b/node_modules/react-native-css-interop/.cache/windows.js
+new file mode 100644
+index 0000000..e69de29
+diff --git a/node_modules/react-native-css-interop/dist/metro/index.js b/node_modules/react-native-css-interop/dist/metro/index.js
+index 8a0c01e..b3ddce4 100644
+--- a/node_modules/react-native-css-interop/dist/metro/index.js
++++ b/node_modules/react-native-css-interop/dist/metro/index.js
+@@ -101,11 +101,11 @@ function getConfig(config, options) {
+                         virtualModulesPossible = bundler
+                             .getDependencyGraph()
+                             .then(async (graph) => {
+-                            haste = graph._haste;
+-                            fileSystem = graph._fileSystem;
+-                            ensureFileSystemPatched(fileSystem);
+-                            ensureBundlerPatched(bundler);
+-                        });
++                                haste = graph._haste;
++                                fileSystem = graph._fileSystem;
++                                ensureFileSystemPatched(fileSystem);
++                                ensureBundlerPatched(bundler);
++                            });
+                         server.use(async (_, __, next) => {
+                             await virtualModulesPossible;
+                             next();
+@@ -170,14 +170,13 @@ function emitHasteFileChange(filePath, debug) {
+             ],
+             rootDir,
+             changes: {
+-                addedDirectories: EMPTY_SET,
+-                removedDirectories: EMPTY_SET,
+-                addedFiles: EMPTY_SET,
+-                removedFiles: EMPTY_SET,
+-                modifiedFiles: new Set([
+-                    [canonicalPath, { isSymlink: false, modifiedTime }],
+-                ]),
++                addedDirectories: new Set(),
++                removedDirectories: new Set(),
++                addedFiles: [],
++                modifiedFiles: [[filePath, { isSymlink: false, modifiedTime: Date.now() }]],
++                removedFiles: [],
+             },
++            rootDir: "",
+         });
+     }
+     catch (error) {
+@@ -282,24 +281,24 @@ function stringify(data) {
+             else if (Array.isArray(data)) {
+                 return `[${data
+                     .map((value) => {
+-                    return value === null || value === undefined
+-                        ? ""
+-                        : stringify(value);
+-                })
++                        return value === null || value === undefined
++                            ? ""
++                            : stringify(value);
++                    })
+                     .join(",")}]`;
+             }
+             else {
+                 return `{${Object.entries(data)
+                     .flatMap(([key, value]) => {
+-                    if (value === null || value === undefined) {
+-                        return [];
+-                    }
+-                    if (key.match(/[^a-zA-Z]/)) {
+-                        key = `"${key}"`;
+-                    }
+-                    value = stringify(value);
+-                    return [`${key}:${value}`];
+-                })
++                        if (value === null || value === undefined) {
++                            return [];
++                        }
++                        if (key.match(/[^a-zA-Z]/)) {
++                            key = `"${key}"`;
++                        }
++                        value = stringify(value);
++                        return [`${key}:${value}`];
++                    })
+                     .join(",")}}`;
+             }
+         }
