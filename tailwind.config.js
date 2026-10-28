@@ -6,8 +6,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        alabaster: "#fafafa",
-        "governor-bay": "#3830a3",
+        fantasy: "#fdf8f8",
+        "cod-gray": "#1c1b1b",
+        scorpion: "#5e5e5e",
+        "soft-peach": "#f8f3f2",
       },
     },
   },
